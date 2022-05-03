@@ -20,3 +20,21 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
       KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092'
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  demo-producer:
+    image: demo-producer:latest
+    depends_on:
+      - kafka
+    ports:
+      - '8080:8080'
+    environment:
+      KAFKA_SERVERS: kafka:29092
+
+  demo-consumer:
+    image: demo-consumer:latest
+    depends_on:
+      - kafka
+    ports:
+      - '8081:8081'
+    environment:
+      KAFKA_SERVERS: kafka:29092
